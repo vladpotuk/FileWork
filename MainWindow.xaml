@@ -1,22 +1,19 @@
-﻿<Window x:Class="ModeratorApp.MainWindow"
+﻿<Window x:Class="ReverseFileContent.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Модератор" Height="350" Width="500">
-    <Grid>
+        Title="Reverse File Content" Height="350" Width="500">
+    <Grid Background="#f2f2f2">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Шлях до файлу з текстом:" Grid.Row="0" Margin="5"/>
-        <TextBox x:Name="TextFilePathTextBox" Grid.Row="0" Margin="5" Padding="5" Width="300" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Content="Шлях до файлу зі словами для модерації:" Grid.Row="1" Margin="5"/>
-        <TextBox x:Name="ModerationWordsFilePathTextBox" Grid.Row="1" Margin="5" Padding="5" Width="300" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Button Content="Модерувати" Grid.Row="2" Margin="5" Padding="10" Click="ModerateButton_Click" HorizontalAlignment="Center" Background="#007acc" Foreground="White" BorderThickness="0" Cursor="Hand"/>
-        <Border Grid.Row="3" Margin="5" Padding="10" Background="White" BorderBrush="#007acc" BorderThickness="1" CornerRadius="5">
+        <Label Content="Шлях до файлу:" Grid.Row="0" Margin="5"/>
+        <TextBox x:Name="FilePathTextBox" Grid.Row="0" Margin="5" Padding="5" Width="300" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="1" BorderBrush="#007acc"/>
+        <Button Content="Перевернути вміст файлу" Grid.Row="1" Margin="5" Padding="10" Click="ReverseContentButton_Click" HorizontalAlignment="Center" Background="#007acc" Foreground="White" BorderThickness="0" Cursor="Hand"/>
+        <Border Grid.Row="2" Margin="5" Padding="10" Background="White" BorderBrush="#007acc" BorderThickness="1" CornerRadius="5">
             <TextBlock x:Name="ResultTextBlock" Margin="5"/>
         </Border>
     </Grid>

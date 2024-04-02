@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Windows;
 
-namespace ModeratorApp
+namespace ReverseFileContent
 {
     public partial class MainWindow : Window
     {
@@ -11,36 +12,37 @@ namespace ModeratorApp
             InitializeComponent();
         }
 
-        private void ModerateButton_Click(object sender, RoutedEventArgs e)
+        private void ReverseContentButton_Click(object sender, RoutedEventArgs e)
         {
-            string textFilePath = TextFilePathTextBox.Text;
-            string moderationFilePath = ModerationWordsFilePathTextBox.Text;
+            string filePath = FilePathTextBox.Text;
 
-            if (string.IsNullOrEmpty(textFilePath) || string.IsNullOrEmpty(moderationFilePath))
+            if (string.IsNullOrEmpty(filePath))
             {
-                MessageBox.Show("Введіть шлях до файлу з текстом та файлу зі словами для модерації!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введіть шлях до файлу!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             try
             {
-                string[] moderationWords = File.ReadAllLines(moderationFilePath);
+                string fileContent = File.ReadAllText(filePath);
+                string reversedContent = ReverseString(fileContent);
 
-                string text = File.ReadAllText(textFilePath);
+                string outputFilePath = Path.Combine(Path.GetDirectoryName(filePath), "reversed_" + Path.GetFileName(filePath));
+                File.WriteAllText(outputFilePath, reversedContent);
 
-                foreach (string word in moderationWords)
-                {
-                    text = text.Replace(word, new string('*', word.Length));
-                }
-
-                File.WriteAllText(textFilePath, text);
-
-                ResultTextBlock.Text = "Модерація завершена. Перевірте змінений файл.";
+                ResultTextBlock.Text = $"Вміст файлу перевернуто та збережено у файлі '{outputFilePath}'.";
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Виникла помилка: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private string ReverseString(string input)
+        {
+            char[] charArray = input.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
         }
     }
 }
