@@ -1,18 +1,22 @@
-﻿<Window x:Class="FileWork.MainWindow"
+﻿<Window x:Class="NumberStatsAnalyzer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="File Viewer" Height="350" Width="500">
+        Title="Number Stats Analyzer" Height="350" Width="525">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Введіть шлях до файлу:"/>
-        <TextBox x:Name="FilePathTextBox" Grid.Row="1"/>
-        <Button x:Name="ViewFileButton" Grid.Row="2" Content="Переглянути файл" Click="ViewFileButton_Click"/>
-        <TextBlock x:Name="FileContentTextBox" Grid.Row="3" TextWrapping="Wrap"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button x:Name="AnalyzeButton" Content="Аналізувати файл" Click="AnalyzeButton_Click" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <Label x:Name="PositiveCountLabel" Margin="5"/>
+            <Label x:Name="NegativeCountLabel" Margin="5"/>
+            <Label x:Name="TwoDigitCountLabel" Margin="5"/>
+            <Label x:Name="FiveDigitCountLabel" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>
