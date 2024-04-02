@@ -1,24 +1,36 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FileWork
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ViewFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            string filePath = FilePathTextBox.Text;
+
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    string fileContent = File.ReadAllText(filePath);
+                    FileContentTextBox.Text = fileContent;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Помилка при читанні файлу: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Файл не існує.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
