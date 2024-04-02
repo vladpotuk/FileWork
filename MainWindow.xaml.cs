@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 
-namespace FileWork
+namespace ArrayToFile
 {
     public partial class MainWindow : Window
     {
@@ -11,25 +11,40 @@ namespace FileWork
             InitializeComponent();
         }
 
-        private void ViewFileButton_Click(object sender, RoutedEventArgs e)
+        private void SaveToFileButton_Click(object sender, RoutedEventArgs e)
         {
-            string filePath = FilePathTextBox.Text;
+            string arrayInput = ArrayInputTextBox.Text;
+            string[] elements = arrayInput.Split(',');
 
-            if (File.Exists(filePath))
+            try
             {
-                try
+                using (StreamWriter writer = new StreamWriter("array.txt"))
                 {
-                    string fileContent = File.ReadAllText(filePath);
-                    FileContentTextBox.Text = fileContent;
+                    foreach (string element in elements)
+                    {
+                        writer.WriteLine(element);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Помилка при читанні файлу: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                StatusMessageLabel.Content = "Масив був успішно збережений у файл.";
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Файл не існує.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                StatusMessageLabel.Content = $"Помилка збереження масиву у файл: {ex.Message}";
+            }
+        }
+
+        private void LoadFromFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string[] elements = File.ReadAllLines("array.txt");
+                string arrayInput = string.Join(",", elements);
+                ArrayInputTextBox.Text = arrayInput;
+                StatusMessageLabel.Content = "Масив був успішно завантажений з файлу.";
+            }
+            catch (Exception ex)
+            {
+                StatusMessageLabel.Content = $"Помилка завантаження масиву з файлу: {ex.Message}";
             }
         }
     }
